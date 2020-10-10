@@ -33,6 +33,7 @@ namespace _20_Lab5_1 {
 		}
 
 		private void Form1_Load(object sender, EventArgs e) {
+			// Показати діалогове вікно.
 			switch (MessageBox.Show("Чи потрібно, щоб квадрат можна було повертати вліво або вправо?",
 				"Створення квадрату", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2)) {
 			case DialogResult.Yes:
