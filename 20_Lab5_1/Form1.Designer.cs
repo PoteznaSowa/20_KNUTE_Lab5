@@ -23,7 +23,15 @@
 		///  the contents of this method with the code editor.
 		/// </summary>
 		private void InitializeComponent() {
+			this.components = new System.ComponentModel.Container();
+			this.timer1 = new System.Windows.Forms.Timer(this.components);
 			this.SuspendLayout();
+			// 
+			// timer1
+			// 
+			this.timer1.Enabled = true;
+			this.timer1.Interval = 1;
+			this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
 			// 
 			// Form1
 			// 
@@ -31,6 +39,7 @@
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(684, 461);
 			this.DoubleBuffered = true;
+			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
 			this.MaximizeBox = false;
 			this.Name = "Form1";
 			this.Text = "Lab5_1";
@@ -42,6 +51,8 @@
 		}
 
 		#endregion
+
+		private System.Windows.Forms.Timer timer1;
 	}
 }
 

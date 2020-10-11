@@ -56,7 +56,7 @@
 			this.numericUpDown1.Size = new System.Drawing.Size(49, 23);
 			this.numericUpDown1.TabIndex = 2;
 			this.numericUpDown1.Value = new decimal(new int[] {
-            10,
+            99,
             0,
             0,
             0});
@@ -64,7 +64,7 @@
 			// 
 			// button1
 			// 
-			this.button1.BackColor = System.Drawing.Color.White;
+			this.button1.BackColor = System.Drawing.Color.Lime;
 			this.button1.ForeColor = System.Drawing.Color.Black;
 			this.button1.Location = new System.Drawing.Point(12, 36);
 			this.button1.Name = "button1";

@@ -3,32 +3,40 @@ using System.Collections.Generic;
 using System.Text;
 using System.Windows.Forms;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 
 namespace _20_Lab5_1 {
 	class Square {
-		protected int Pos_X {
+		protected float Pos_X {
 			get; set;
 		}
-		protected int Pos_Y {
+		protected float Pos_Y {
 			get; set;
 		}
-		protected int Size {
+		protected float Size {
 			get; set;
 		}
-		protected Color Colour {
+		protected Pen Outline {
+			// Контур
+			get; set;
+		}
+		protected Brush FillBrush {
+			// Пензель для заливки
 			get; set;
 		}
 
 		public Square(Form window) {
-			Pos_X = 200;
-			Pos_Y = 200;
+			Pos_X = 200.5F;
+			Pos_Y = 200.5F;
 			Form2 f = new Form2();
 			if (f.ShowDialog() == DialogResult.OK) {
 				Size = f.ObjSize;
-				Colour = f.ObjColour;
+				Outline = new Pen(Color.Black, 2);
+				FillBrush = new SolidBrush(f.ObjColour);
 			} else {
 				window.Close();
 			}
+			f.Dispose();
 		}
 
 		public virtual void ShowInfo() {
@@ -38,14 +46,14 @@ namespace _20_Lab5_1 {
 			// |    |
 			// C----D
 			//
-			int ax = Pos_X;
-			int ay = Pos_Y;
-			int bx = Pos_X + Size - 1;
-			int by = Pos_Y;
-			int cx = Pos_X;
-			int cy = Pos_Y + Size - 1;
-			int dx = Pos_X + Size - 1;
-			int dy = Pos_Y + Size - 1;
+			float ax = Pos_X;
+			float ay = Pos_Y;
+			float bx = Pos_X + Size - 1;
+			float by = Pos_Y;
+			float cx = Pos_X;
+			float cy = Pos_Y + Size - 1;
+			float dx = Pos_X + Size - 1;
+			float dy = Pos_Y + Size - 1;
 
 			MessageBox.Show(
 				$"Довжина сторони: {Size}\n" +
@@ -59,22 +67,27 @@ namespace _20_Lab5_1 {
 
 		public virtual void Draw(Graphics g, Color bgcolor) {
 			g.Clear(bgcolor);
-			g.DrawRectangle(new Pen(Color.Black, 2), Pos_X, Pos_Y, Size, Size);
-			g.FillRectangle(new SolidBrush(Colour), Pos_X, Pos_Y, Size, Size);
+			g.SmoothingMode = SmoothingMode.HighQuality;
+			g.DrawRectangle(Outline, Pos_X, Pos_Y, Size, Size);
+			g.FillRectangle(FillBrush, Pos_X, Pos_Y, Size, Size);
 		}
 
-		public virtual void MoveLeft(Form window) {
+		public virtual bool MoveLeft(Form window) {
 			if (Pos_X > 0) {
 				Pos_X--;
 				window.Invalidate();
+				return true;
 			}
+			return false;
 		}
 
-		public virtual void MoveRight(Form window) {
-			if (Pos_X < window.Width - 17) {
+		public virtual bool MoveRight(Form window) {
+			if (Pos_X < window.Width - Size - 17) {
 				Pos_X++;
 				window.Invalidate();
+				return true;
 			}
+			return false;
 		}
 	}
 }

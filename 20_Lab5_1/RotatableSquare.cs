@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Windows.Forms;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 
 namespace _20_Lab5_1 {
 	class RotatableSquare : Square {
@@ -23,8 +24,8 @@ namespace _20_Lab5_1 {
 			//
 			float radians = Angle * MathF.PI / 180;
 			float radians1 = (Angle - 45) * MathF.PI / 180;
-			int ax = Pos_X;
-			int ay = Pos_Y;
+			float ax = Pos_X;
+			float ay = Pos_Y;
 			float bx = Pos_X + ((Size - 1) * MathF.Cos(radians));
 			float by = Pos_Y + ((Size - 1) * MathF.Sin(radians));
 			float cx = Pos_X + ((Size - 1) * MathF.Sin(radians));
@@ -45,24 +46,27 @@ namespace _20_Lab5_1 {
 
 		public override void Draw(Graphics g, Color bgcolor) {
 			g.Clear(bgcolor);
+			g.SmoothingMode = SmoothingMode.HighQuality;
 			g.TranslateTransform(Pos_X, Pos_Y);
 			g.RotateTransform(-Angle);
-			g.DrawRectangle(new Pen(Color.Black, 2), 0, 0, Size, Size);
-			g.FillRectangle(new SolidBrush(Colour), 0, 0, Size, Size);
+			g.DrawRectangle(Outline, 0, 0, Size, Size);
+			g.FillRectangle(FillBrush, 0, 0, Size, Size);
 		}
 
-		public override void MoveLeft(Form window) {
+		public override bool MoveLeft(Form window) {
 			Angle++;
 			if (Angle > 180)
 				Angle -= 360;
 			window.Invalidate();
+			return true;
 		}
 
-		public override void MoveRight(Form window) {
+		public override bool MoveRight(Form window) {
 			Angle--;
 			if (Angle < -180)
 				Angle += 360;
 			window.Invalidate();
+			return true;
 		}
 	}
 }

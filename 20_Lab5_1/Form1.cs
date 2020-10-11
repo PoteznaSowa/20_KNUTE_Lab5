@@ -19,13 +19,16 @@ namespace _20_Lab5_1 {
 		private void Form1_KeyDown(object sender, KeyEventArgs e) {
 			switch (e.KeyData) {
 			case Keys.Space:
+				movemode = 0;
 				square.ShowInfo();
 				break;
 			case Keys.Left:
-				square.MoveLeft(this);
+				movemode = 1;
+				//square.MoveLeft(this);
 				break;
 			case Keys.Right:
-				square.MoveRight(this);
+				movemode = 2;
+				//square.MoveRight(this);
 				break;
 			default:
 				break;
@@ -35,7 +38,8 @@ namespace _20_Lab5_1 {
 		private void Form1_Load(object sender, EventArgs e) {
 			// Показати діалогове вікно.
 			switch (MessageBox.Show("Чи потрібно, щоб квадрат можна було повертати вліво або вправо?",
-				"Створення квадрату", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2)) {
+				"Створення квадрату", MessageBoxButtons.YesNo,MessageBoxIcon.Question,
+				MessageBoxDefaultButton.Button2)) {
 			case DialogResult.Yes:
 				square = new RotatableSquare(this);
 				break;
@@ -50,6 +54,20 @@ namespace _20_Lab5_1 {
 
 		private void Form1_Paint(object sender, PaintEventArgs e) {
 			square.Draw(e.Graphics, BackColor);
+		}
+
+		int movemode = 0;
+		private void timer1_Tick(object sender, EventArgs e) {
+			switch (movemode) {
+			case 1:
+				if (!square.MoveLeft(this))
+					movemode = 2;
+				return;
+			case 2:
+				if (!square.MoveRight(this))
+					movemode = 1;
+				return;
+			}
 		}
 	}
 }

@@ -17,9 +17,11 @@ namespace _20_Lab5_1 {
 		readonly ColorDialog d;
 
 		public Form2() {
-			ObjSize = 10;
-			ObjColour = Color.White;
-			d = new ColorDialog();
+			ObjSize = 99;
+			ObjColour = Color.Lime;
+			d = new ColorDialog() {
+				Color = ObjColour
+			};
 			InitializeComponent();
 		}
 
