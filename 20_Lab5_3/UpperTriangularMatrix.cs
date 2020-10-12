@@ -11,12 +11,12 @@ namespace _20_Lab5_3 {
 
 			ConsoleColor fgc = Console.ForegroundColor;
 			ConsoleColor bgc = Console.BackgroundColor;
-			int x = 0;
-			int y = 0;
+			var x = 0;
+			var y = 0;
 			var currentline = Console.CursorTop;
 			Console.CursorVisible = false;
-			if (Console.KeyAvailable)
-				Console.ReadKey();
+			while (Console.KeyAvailable)
+				Console.ReadKey();  // Очистити буфер вводу.
 			for (; ; ) {
 				Console.CursorLeft = x * 4;
 				Console.CursorTop = currentline - height + y;
@@ -37,6 +37,7 @@ namespace _20_Lab5_3 {
 				case ConsoleKey.Enter:
 					goto Exit;
 				case ConsoleKey.LeftArrow:
+					// За головну діагональ не можна вилазити.
 					if (x > y)
 						x--;
 					break;
@@ -49,6 +50,7 @@ namespace _20_Lab5_3 {
 						x++;
 					break;
 				case ConsoleKey.DownArrow:
+					// За головну діагональ не можна вилазити.
 					if (y < height - 1 && x > y)
 						y++;
 					break;
@@ -62,11 +64,9 @@ namespace _20_Lab5_3 {
 				case ConsoleKey.D7:
 				case ConsoleKey.D8:
 				case ConsoleKey.D9:
-					content[x, y] = content[x, y] * 10 % 100;
-					if (content[x, y] >= 0)
-						content[x, y] += key - ConsoleKey.D0;
-					else
-						content[x, y] -= key - ConsoleKey.D0;
+					if (content[x, y] < 0)
+						content[x, y] = -content[x, y];
+					content[x, y] = (content[x, y] % 10 * 10) + (key - ConsoleKey.D0);
 					break;
 				case ConsoleKey.NumPad0:
 				case ConsoleKey.NumPad1:
@@ -78,11 +78,9 @@ namespace _20_Lab5_3 {
 				case ConsoleKey.NumPad7:
 				case ConsoleKey.NumPad8:
 				case ConsoleKey.NumPad9:
-					content[x, y] = content[x, y] * 10 % 100;
-					if (content[x, y] >= 0)
-						content[x, y] += key - ConsoleKey.NumPad0;
-					else
-						content[x, y] -= key - ConsoleKey.NumPad0;
+					if (content[x, y] < 0)
+						content[x, y] = -content[x, y];
+					content[x, y] = (content[x, y] % 10 * 10) + (key - ConsoleKey.NumPad0);
 					break;
 				case ConsoleKey.Subtract:
 				case ConsoleKey.OemMinus:

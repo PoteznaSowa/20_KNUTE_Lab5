@@ -17,18 +17,20 @@ namespace _20_Lab5_1 {
 		}
 
 		private void Form1_KeyDown(object sender, KeyEventArgs e) {
+			// Перевірити, яку клавішу було натиснуто.
 			switch (e.KeyData) {
 			case Keys.Space:
+				// Зупинити рух об'єкта та вивести інформацію про нього.
 				movemode = 0;
 				square.ShowInfo();
 				break;
 			case Keys.Left:
+				// Рухати об'єкт вліво.
 				movemode = 1;
-				//square.MoveLeft(this);
 				break;
 			case Keys.Right:
+				// Рухати об'єкт вправо.
 				movemode = 2;
-				//square.MoveRight(this);
 				break;
 			default:
 				break;
@@ -36,9 +38,9 @@ namespace _20_Lab5_1 {
 		}
 
 		private void Form1_Load(object sender, EventArgs e) {
-			// Показати діалогове вікно.
+			// Показати діалогове вікно створення квадрату.
 			switch (MessageBox.Show("Чи потрібно, щоб квадрат можна було повертати вліво або вправо?",
-				"Створення квадрату", MessageBoxButtons.YesNo,MessageBoxIcon.Question,
+				"Створення квадрату", MessageBoxButtons.YesNo, MessageBoxIcon.Question,
 				MessageBoxDefaultButton.Button2)) {
 			case DialogResult.Yes:
 				square = new RotatableSquare(this);
@@ -47,6 +49,7 @@ namespace _20_Lab5_1 {
 				square = new Square(this);
 				break;
 			default:
+				// Якщо якось це вікно повідомлень закриється інакше, закрити програму.
 				Close();
 				break;
 			}
@@ -56,8 +59,12 @@ namespace _20_Lab5_1 {
 			square.Draw(e.Graphics, BackColor);
 		}
 
-		int movemode = 0;
+		int movemode = 0;  // Режим руху квадрата.
 		private void timer1_Tick(object sender, EventArgs e) {
+			// Оновлювати стан об'єкту кожні 1/64 секунди.
+			// Чому 1/64 секунди?
+			// Було виставлено період таймеру на 1 мілісекунду, що є 1/1000 секунди, але
+			// таймери в .NET спрацьовують раз на 1/64 секунди.
 			switch (movemode) {
 			case 1:
 				if (!square.MoveLeft(this))

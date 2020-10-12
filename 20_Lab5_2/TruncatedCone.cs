@@ -5,10 +5,12 @@ using System.Text;
 namespace _20_Lab5_2 {
 	class TruncatedCone : Cone {
 		public double FrustrumRadius {
+			// Площа верхньої основи.
 			get;
 		}
 		public override double Volume {
 			get {
+				// Об'єм зрізаного конуса.
 				var r =
 					BaseRadius * BaseRadius +
 					BaseRadius * FrustrumRadius +

@@ -7,8 +7,8 @@ namespace _20_Lab5_3 {
 			Console.Title = "Lab5_3";
 
 			Matrix matrix = null;
-			if (Console.KeyAvailable)
-				Console.ReadKey();
+			while (Console.KeyAvailable)
+				Console.ReadKey();  // Очистити буфер вводу.
 			for (; ; ) {
 				int a, b;
 				if (matrix == null) {

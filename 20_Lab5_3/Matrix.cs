@@ -8,8 +8,10 @@ namespace _20_Lab5_3 {
 
 		public Matrix(int width, int height) {
 			if (width < 1 || height < 1) {
+				// Матриця не існуватиме, якщо її "площа" є недодатньою.
 				throw new ArgumentOutOfRangeException();
 			}
+			// Фактично матриця є двомірним масивом.
 			content = new int[width, height];
 			this.width = width;
 			this.height = height;
@@ -18,25 +20,28 @@ namespace _20_Lab5_3 {
 		public virtual void Edit() {
 			Show();
 
-			ConsoleColor fgc = Console.ForegroundColor;
-			ConsoleColor bgc = Console.BackgroundColor;
-			int x = 0;
-			int y = 0;
-			var currentline = Console.CursorTop;
-			Console.CursorVisible = false;
-			if (Console.KeyAvailable)
-				Console.ReadKey();
+			var fgc = Console.ForegroundColor;
+			var bgc = Console.BackgroundColor;
+			var x = 0;
+			var y = 0;
+			var currentline = Console.CursorTop;  // Запам'ятати номер рядка в консолі.
+			Console.CursorVisible = false;  // Приховати курсор, щоб не заважав.
+			while (Console.KeyAvailable)
+				Console.ReadKey();  // Очистити буфер вводу.
 			for (; ; ) {
+				// Оновити та підсвітити елемент матриці.
 				Console.CursorLeft = x * 4;
 				Console.CursorTop = currentline - height + y;
 				Console.BackgroundColor = fgc;
 				Console.ForegroundColor = bgc;
 				Console.Write("{0,4}", content[x, y]);
+				// Скинути стан курсора на випадок, якщо програму буде примусово закрито.
 				Console.ResetColor();
 				Console.CursorLeft = 0;
 				Console.CursorTop = currentline;
 
 				ConsoleKey key = Console.ReadKey(true).Key;
+				// Прибрати підсвітку елемента.
 				Console.CursorLeft = x * 4;
 				Console.CursorTop = currentline - height + y;
 				Console.Write("{0,4}", content[x, y]);
@@ -44,20 +49,24 @@ namespace _20_Lab5_3 {
 				Console.CursorTop = currentline;
 				switch (key) {
 				case ConsoleKey.Enter:
-					goto Exit;
+					goto Exit;  // Вийти з нескінченого циклу for(;;).
 				case ConsoleKey.LeftArrow:
+					// Перемістити курсор вліво.
 					if (x > 0)
 						x--;
 					break;
 				case ConsoleKey.UpArrow:
+					// Перемістити курсор вверх.
 					if (y > 0)
 						y--;
 					break;
 				case ConsoleKey.RightArrow:
+					// Перемістити курсор вправо.
 					if (x < width - 1)
 						x++;
 					break;
 				case ConsoleKey.DownArrow:
+					// Перемістити курсор вниз.
 					if (y < height - 1)
 						y++;
 					break;
@@ -71,11 +80,10 @@ namespace _20_Lab5_3 {
 				case ConsoleKey.D7:
 				case ConsoleKey.D8:
 				case ConsoleKey.D9:
-					content[x, y] = content[x, y] * 10 % 100;
-					if (content[x, y] >= 0)
-						content[x, y] += key - ConsoleKey.D0;
-					else
-						content[x, y] -= key - ConsoleKey.D0;
+					// Якщо ввести цифру, мінус губиться.
+					if (content[x, y] < 0)
+						content[x, y] = -content[x, y];
+					content[x, y] = (content[x, y] % 10 * 10) + (key - ConsoleKey.D0);
 					break;
 				case ConsoleKey.NumPad0:
 				case ConsoleKey.NumPad1:
@@ -87,14 +95,14 @@ namespace _20_Lab5_3 {
 				case ConsoleKey.NumPad7:
 				case ConsoleKey.NumPad8:
 				case ConsoleKey.NumPad9:
-					content[x, y] = content[x, y] * 10 % 100;
-					if (content[x, y] >= 0)
-						content[x, y] += key - ConsoleKey.NumPad0;
-					else
-						content[x, y] -= key - ConsoleKey.NumPad0;
+					// Якщо ввести цифру, мінус губиться.
+					if (content[x, y] < 0)
+						content[x, y] = -content[x, y];
+					content[x, y] = (content[x, y] % 10 * 10) + (key - ConsoleKey.NumPad0);
 					break;
 				case ConsoleKey.OemMinus:
 				case ConsoleKey.Subtract:
+					// Переключити мінус.
 					content[x, y] = -content[x, y];
 					break;
 				default:
@@ -102,12 +110,13 @@ namespace _20_Lab5_3 {
 				}
 			}
 		Exit:
-			Console.CursorVisible = true;
+			Console.CursorVisible = true;  // Показати курсор.
 		}
 
 		public virtual void Show() {
-			for (int i = 0; i < height; i++) {
-				for (int j = 0; j < width; j++) {
+			// Вивести на екран матрицю.
+			for (var i = 0; i < height; i++) {
+				for (var j = 0; j < width; j++) {
 					Console.Write("{0,4}", content[j, i]);
 				}
 				Console.WriteLine();

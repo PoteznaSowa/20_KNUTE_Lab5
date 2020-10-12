@@ -6,9 +6,9 @@ namespace _20_Lab5_2 {
 			Console.OutputEncoding = System.Text.Encoding.UTF8;
 			Console.Title = "Lab5_2";
 
-			Cone cone = null;
-			if (Console.KeyAvailable)
-				Console.ReadKey();
+			Cone cone = null;  // Конуса ще нема, ми створимо його згодом.
+			while (Console.KeyAvailable)
+				Console.ReadKey();  // Очистити буфер вводу.
 			for (; ; ) {
 				int a;
 				if (cone == null) {
@@ -18,6 +18,7 @@ namespace _20_Lab5_2 {
 					Console.WriteLine("1. Звичайний");
 					Console.WriteLine("2. Зрізаний");
 					do {
+						// Треба натиснути потрібну клавішу з цифрою, щоб продовжити.
 						a = GetNumberKey();
 					} while (a < 1 || a > 2);
 					switch (a) {
@@ -67,6 +68,7 @@ namespace _20_Lab5_2 {
 		}
 		static int GetNumberKey() {
 			for (; ; ) {
+				// Отримати від користувача десяткову цифру.
 				var key = Console.ReadKey(true).Key;
 				switch (key) {
 				case ConsoleKey.D0:
