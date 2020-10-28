@@ -16,7 +16,7 @@ namespace _20_Lab5_3 {
 		public override void Show() {
 			for (int i = 0; i < height; i++) {
 				for (int j = 0; j < width; j++) {
-					Console.Write(" {0}", content[j, i]);
+					Console.Write($" {content[j, i]}");
 				}
 				Console.WriteLine();
 			}

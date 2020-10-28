@@ -107,8 +107,6 @@ namespace _20_Lab5_3 {
 				case ConsoleKey.NumPad8:
 				case ConsoleKey.NumPad9:
 					return key - ConsoleKey.NumPad0;
-				default:
-					continue;
 				}
 			}
 		}

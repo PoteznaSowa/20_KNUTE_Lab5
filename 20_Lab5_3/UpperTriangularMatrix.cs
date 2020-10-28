@@ -18,21 +18,17 @@ namespace _20_Lab5_3 {
 			while (Console.KeyAvailable)
 				Console.ReadKey();  // Очистити буфер вводу.
 			for (; ; ) {
-				Console.CursorLeft = x * 4;
-				Console.CursorTop = currentline - height + y;
+				Console.SetCursorPosition(x * 4, currentline - height + y);
 				Console.BackgroundColor = fgc;
 				Console.ForegroundColor = bgc;
 				Console.Write("{0,4}", content[x, y]);
 				Console.ResetColor();
-				Console.CursorLeft = 0;
-				Console.CursorTop = currentline;
+				Console.SetCursorPosition(0, currentline);
 
 				ConsoleKey key = Console.ReadKey(true).Key;
-				Console.CursorLeft = x * 4;
-				Console.CursorTop = currentline - height + y;
+				Console.SetCursorPosition(x * 4, currentline - height + y);
 				Console.Write("{0,4}", content[x, y]);
-				Console.CursorLeft = 0;
-				Console.CursorTop = currentline;
+				Console.SetCursorPosition(0, currentline);
 				switch (key) {
 				case ConsoleKey.Enter:
 					goto Exit;
