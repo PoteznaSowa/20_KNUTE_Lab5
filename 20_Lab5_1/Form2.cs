@@ -28,7 +28,6 @@ namespace _20_Lab5_1 {
 		private void button1_Click(object sender, EventArgs e) {
 			if (d.ShowDialog() == DialogResult.OK) {
 				button1.BackColor = ObjColour = d.Color;
-				// Переконатися, що текст на кнопці буде видно.
 				if (ObjColour.R < 99 && ObjColour.G < 99 && ObjColour.B < 99) {
 					button1.ForeColor = Color.White;
 				} else {
