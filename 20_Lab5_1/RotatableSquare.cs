@@ -8,7 +8,6 @@ using System.Drawing.Drawing2D;
 namespace _20_Lab5_1 {
 	class RotatableSquare : Square {
 		int Angle {
-			// Кут повороту в градусах.
 			get; set;
 		}
 
@@ -17,7 +16,6 @@ namespace _20_Lab5_1 {
 		}
 
 		public override void ShowInfo() {
-			// Обчислити координати точок квадрата.
 			//
 			// A----B
 			// |    |
@@ -35,7 +33,6 @@ namespace _20_Lab5_1 {
 			float dx = Pos_X - ((Size - 1) * MathF.Sin(radians1) * MathF.Sqrt(2));
 			float dy = Pos_Y + ((Size - 1) * MathF.Cos(radians1) * MathF.Sqrt(2));
 
-			// Вивести на екран дані про цей квадрат.
 			MessageBox.Show(
 				$"Довжина сторони: {Size}\n" +
 				$"Кут повороту: {Angle}°\n" +
@@ -48,30 +45,28 @@ namespace _20_Lab5_1 {
 		}
 
 		public override void Draw(Graphics canvas, Color bgcolor) {
-			canvas.Clear(bgcolor);  // Очистити тло.
-			canvas.SmoothingMode = SmoothingMode.HighQuality;  // Зглажування.
+			canvas.Clear(bgcolor);
+			canvas.SmoothingMode = SmoothingMode.HighQuality;
 			canvas.TranslateTransform(Pos_X, Pos_Y);
-			canvas.RotateTransform(-Angle);  // Повернути тло.
-			canvas.DrawRectangle(Outline, 0, 0, Size, Size);  // Намалювати контур квадрата.
-			canvas.FillRectangle(FillBrush, 0, 0, Size, Size);  // Заливка.
+			canvas.RotateTransform(-Angle);
+			canvas.DrawRectangle(Outline, 0, 0, Size, Size);
+			canvas.FillRectangle(FillBrush, 0, 0, Size, Size);
 		}
 
 		public override bool MoveLeft(Form window) {
-			// Поворот проти годинникової стрілки.
 			Angle++;
 			if (Angle > 180)
 				Angle -= 360;
-			window.Invalidate();  // Перемалювати квадрат.
-			return true;  // Успішно.
+			window.Invalidate();
+			return true;
 		}
 
 		public override bool MoveRight(Form window) {
-			// Поворот за годинниковою стрілкою.
 			Angle--;
 			if (Angle < -180)
 				Angle += 360;
-			window.Invalidate();  // Перемалювати квадрат.
-			return true;  // Успішно.
+			window.Invalidate();
+			return true;
 		}
 	}
 }
